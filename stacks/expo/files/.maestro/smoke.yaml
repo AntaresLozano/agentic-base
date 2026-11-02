@@ -1,0 +1,10 @@
+# Smoke: la app arranca sin errores.
+# Requiere un development build instalado en el simulador: `npx expo run:ios`.
+# Ejecutar: `pnpm e2e` (todos los flujos) o `maestro test .maestro/smoke.yaml`.
+# Cuando exista la pantalla de inicio, añade un `assertVisible` con su título o su testID.
+appId: '{{APP_ID}}'
+---
+- launchApp:
+    clearState: true
+- waitForAnimationToEnd
+- takeScreenshot: .maestro/output/smoke

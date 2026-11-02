@@ -1,0 +1,47 @@
+{
+  "$comment": "Hooks para Expo + React Native con pnpm. Referencia: manual/05-adaptar-a-tu-stack.md",
+  "skipPaths": "^(node_modules|ios|android|dist|coverage|\\.expo)/",
+  "sourceFiles": "^src/.*\\.(ts|tsx)$",
+  "format": {
+    "files": "\\.(ts|tsx|js|mjs|cjs|json|md|ya?ml)$",
+    "command": ["node_modules/.bin/prettier", "--write", "--log-level", "silent", "{file}"]
+  },
+  "lint": {
+    "files": "\\.(ts|tsx|js|mjs|cjs)$",
+    "command": ["node_modules/.bin/eslint", "--fix", "--no-warn-ignored", "{file}"]
+  },
+  "typecheck": {
+    "command": ["node_modules/.bin/tsc", "--noEmit"]
+  },
+  "relatedTests": {
+    "command": [
+      "node_modules/.bin/jest",
+      "--bail",
+      "--findRelatedTests",
+      "--passWithNoTests",
+      "{files}"
+    ]
+  },
+  "protect": {
+    "deny": [
+      {
+        "pattern": "(^|/)\\.env(\\.|$)",
+        "reason": "Los archivos .env contienen secretos: edítalos tú a mano."
+      },
+      {
+        "pattern": "^(ios|android)/",
+        "reason": "ios/ y android/ se generan (CNG). Configura en app.json o con config plugins."
+      },
+      {
+        "pattern": "(^|/)(pnpm-lock\\.yaml|package-lock\\.json|yarn\\.lock|bun\\.lockb?)$",
+        "reason": "El lockfile solo lo modifica el gestor de paquetes / expo install."
+      }
+    ],
+    "ask": [
+      {
+        "pattern": "^src/theme/tokens\\.ts$",
+        "reason": "tokens.ts es la identidad visual: cambiarlo requiere aprobación humana."
+      }
+    ]
+  }
+}

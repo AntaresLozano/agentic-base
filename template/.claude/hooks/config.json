@@ -1,0 +1,38 @@
+{
+  "$comment": "Configuración de los hooks. Por defecto: proyecto JS/TS con prettier, eslint, tsc y jest. Si una herramienta no está instalada, ese paso se omite. Referencia: manual/05-adaptar-a-tu-stack.md",
+  "skipPaths": "^(node_modules|dist|build|coverage|vendor)/",
+  "sourceFiles": "^src/.*\\.(ts|tsx|js|jsx)$",
+  "format": {
+    "files": "\\.(ts|tsx|js|jsx|mjs|cjs|json|md|ya?ml|css)$",
+    "command": ["node_modules/.bin/prettier", "--write", "--log-level", "silent", "{file}"]
+  },
+  "lint": {
+    "files": "\\.(ts|tsx|js|jsx|mjs|cjs)$",
+    "command": ["node_modules/.bin/eslint", "--fix", "--no-warn-ignored", "{file}"]
+  },
+  "typecheck": {
+    "command": ["node_modules/.bin/tsc", "--noEmit"]
+  },
+  "relatedTests": {
+    "command": [
+      "node_modules/.bin/jest",
+      "--bail",
+      "--findRelatedTests",
+      "--passWithNoTests",
+      "{files}"
+    ]
+  },
+  "protect": {
+    "deny": [
+      {
+        "pattern": "(^|/)\\.env(\\.|$)",
+        "reason": "Los archivos .env contienen secretos: edítalos tú a mano."
+      },
+      {
+        "pattern": "(^|/)(pnpm-lock\\.yaml|package-lock\\.json|yarn\\.lock|bun\\.lockb?)$",
+        "reason": "El lockfile solo lo modifica el gestor de paquetes."
+      }
+    ],
+    "ask": []
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "$comment": "Perfil Expo + React Native. Lo aplica scripts/install.mjs --stack expo.",
+  "description": "Expo + React Native + TypeScript + Expo Router + pnpm (iOS y Android)",
+  "gitignore": [".maestro/output/"],
+  "packageJson": {
+    "scripts": {
+      "ios": "expo run:ios",
+      "android": "expo run:android",
+      "typecheck": "tsc --noEmit",
+      "lint": "expo lint",
+      "lint:fix": "expo lint --fix",
+      "format": "prettier --write .",
+      "format:check": "prettier --check .",
+      "test": "jest",
+      "test:watch": "jest --watch",
+      "test:related": "jest --bail --findRelatedTests --passWithNoTests",
+      "e2e": "maestro test .maestro",
+      "check": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test"
+    },
+    "jest": {
+      "preset": "jest-expo",
+      "testPathIgnorePatterns": ["/node_modules/", "/.maestro/"]
+    }
+  }
+}
